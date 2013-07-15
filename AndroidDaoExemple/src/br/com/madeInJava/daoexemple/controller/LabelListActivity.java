@@ -25,12 +25,14 @@ public class LabelListActivity extends ListActivity implements OnItemClickListen
 
 	private LabelDao labelDao;
 	private List<Label> labels;
+	private LabelListAdapter labelListAdapter;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.labelDao = new LabelDao(this);
 		this.labels = labelDao.findAll();
-		super.setListAdapter(new LabelListAdapter(this, this.labels));
+		this.labelListAdapter = new LabelListAdapter(this, this.labels);
+		super.setListAdapter(labelListAdapter);
 		ListView listView = super.getListView();
 		listView.setOnItemClickListener(this);
 		super.registerForContextMenu(listView);
@@ -78,4 +80,13 @@ public class LabelListActivity extends ListActivity implements OnItemClickListen
 			return super.onMenuItemSelected(featureId, item);
 		}
 	}
+
+	@Override
+	protected void onRestart() {
+		this.labels.clear();
+		this.labels.addAll(labelDao.findAll());
+		super.getListView().invalidateViews();
+		super.onRestart();
+	}
+
 }

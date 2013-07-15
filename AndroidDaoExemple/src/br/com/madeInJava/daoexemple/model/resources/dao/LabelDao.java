@@ -31,7 +31,7 @@ public class LabelDao {
 		this.db = null;
 	}
 
-	public long insert(Label label) {
+	public long save(Label label) {
 		ContentValues values = new ContentValues();
 		values.put(LabelMapping.NAME, label.getName());
 		values.put(LabelMapping.DESCRIPTION, label.getDescription());
