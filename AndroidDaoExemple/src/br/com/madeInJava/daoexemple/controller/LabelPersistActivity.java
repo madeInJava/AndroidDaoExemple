@@ -1,5 +1,7 @@
 package br.com.madeInJava.daoexemple.controller;
 
+import java.io.Serializable;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,8 @@ import br.com.madeInJava.daoexemple.model.entity.Label;
 import br.com.madeInJava.daoexemple.model.resources.dao.LabelDao;
 
 public class LabelPersistActivity extends Activity {
+
+	public static final String LABEL_PARAM = "label";
 
 	private Label label;
 
@@ -28,10 +32,16 @@ public class LabelPersistActivity extends Activity {
 		this.labelDao = new LabelDao(this);
 		this.initLabel();
 		this.initComponents();
+		this.bindComponentsWithLabel();
 	}
 
 	private void initLabel() {
-		this.label = new Label();
+		Serializable externalParam = getIntent().getExtras().getSerializable(LABEL_PARAM);
+		if (externalParam != null) {
+			this.label = (Label) externalParam;
+		} else {
+			this.label = new Label();
+		}
 	}
 
 	private void initComponents() {
@@ -44,6 +54,11 @@ public class LabelPersistActivity extends Activity {
 	private void bindLabelWithComponents() {
 		this.label.setName(this.name.getText().toString());
 		this.label.setDescription(this.description.getText().toString());
+	}
+
+	private void bindComponentsWithLabel() {
+		this.name.setText(this.label.getName());
+		this.description.setText(this.label.getDescription());
 	}
 
 	private OnClickListener save() {

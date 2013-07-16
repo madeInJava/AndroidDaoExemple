@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 import br.com.madeInJava.daoexemple.R;
 import br.com.madeInJava.daoexemple.model.entity.Label;
 import br.com.madeInJava.daoexemple.model.resources.dao.LabelDao;
@@ -40,8 +39,9 @@ public class LabelListActivity extends ListActivity implements OnItemClickListen
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-		String description = ((LabelListAdapter) adapterView.getAdapter()).getItem(position).getDescription();
-		Toast.makeText(this, "Description: " + description, Toast.LENGTH_SHORT).show();
+		Label label = ((LabelListAdapter) adapterView.getAdapter()).getItem(position);
+		Intent intent = new Intent(this, LabelPersistActivity.class).putExtra(LabelPersistActivity.LABEL_PARAM, label);
+		startActivity(intent);
 	}
 
 	@Override

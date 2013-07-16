@@ -1,6 +1,10 @@
 package br.com.madeInJava.daoexemple.model.entity;
 
-public class Label {
+import java.io.Serializable;
+
+public class Label implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 	private String name;
