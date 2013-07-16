@@ -89,4 +89,9 @@ public class LabelListActivity extends ListActivity implements OnItemClickListen
 		super.onRestart();
 	}
 
+	@Override
+	protected void onDestroy() {
+		this.labelDao.close();
+		super.onDestroy();
+	}
 }

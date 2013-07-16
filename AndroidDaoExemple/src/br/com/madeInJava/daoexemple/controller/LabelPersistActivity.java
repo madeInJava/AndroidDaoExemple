@@ -75,4 +75,10 @@ public class LabelPersistActivity extends Activity {
 		};
 	}
 
+	@Override
+	protected void onDestroy() {
+		this.labelDao.close();
+		super.onDestroy();
+	}
+
 }
