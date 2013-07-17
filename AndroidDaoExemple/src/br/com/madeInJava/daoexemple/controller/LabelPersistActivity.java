@@ -36,8 +36,8 @@ public class LabelPersistActivity extends Activity {
 	}
 
 	private void initLabel() {
-		Serializable externalParam = getIntent().getExtras().getSerializable(LABEL_PARAM);
-		if (externalParam != null) {
+		if (getIntent().getExtras() != null) {
+			Serializable externalParam = getIntent().getExtras().getSerializable(LABEL_PARAM);
 			this.label = (Label) externalParam;
 		} else {
 			this.label = new Label();
